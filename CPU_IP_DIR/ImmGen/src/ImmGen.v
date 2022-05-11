@@ -21,7 +21,7 @@
 
 
 module ImmGen(
-    input [31:0] inst,
+    input [31:0] raw,
     input [2:0] immSel,
     output [31:0] imm
     );
@@ -33,27 +33,27 @@ module ImmGen(
     // i4 - J
     wire [31:0] i0,i1,i2,i3,i4; 
     
-    assign i0[11:0] = inst[31:20];
-    assign i0[31:12] = inst[31] ? {20{1'b1}}:{20{1'b0}};
+    assign i0[11:0] = raw[31:20];
+    assign i0[31:12] = raw[31] ? {20{1'b1}}:{20{1'b0}};
     
-    assign i1[4:0] = inst[11:7];
-    assign i1[10:5] = inst[30:25];
-    assign i1[31:11] = inst[31] ? {21{1'b1}}:{21{1'b0}};
+    assign i1[4:0] = raw[11:7];
+    assign i1[10:5] = raw[30:25];
+    assign i1[31:11] = raw[31] ? {21{1'b1}}:{21{1'b0}};
     
     assign i2[0] = 1'b0;
-    assign i2[4:1] = inst[11:8];
-    assign i2[10:5] = inst[30:25];
-    assign i2[11] = inst[7];
-    assign i2[31:12] = inst[31] ? {20{1'b1}}:{20{1'b0}};
+    assign i2[4:1] = raw[11:8];
+    assign i2[10:5] = raw[30:25];
+    assign i2[11] = raw[7];
+    assign i2[31:12] = raw[31] ? {20{1'b1}}:{20{1'b0}};
     
     assign i3[11:0] = 12'b0;
-    assign i3[31:12] = inst[31:12];
+    assign i3[31:12] = raw[31:12];
     
     assign i4[0] = 1'b0;
-    assign i4[10:1] = inst[30:21];
-    assign i4[11] = inst[20];
-    assign i4[19:12] = inst[19:12];
-    assign i4[31:20] = inst[31] ?  {12{1'b1}}:{12{1'b0}};
+    assign i4[10:1] = raw[30:21];
+    assign i4[11] = raw[20];
+    assign i4[19:12] = raw[19:12];
+    assign i4[31:20] = raw[31] ?  {12{1'b1}}:{12{1'b0}};
     
     
     MUX8T1_32_0 m1(

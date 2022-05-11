@@ -28,6 +28,15 @@ module tb_regfile(
     reg [4:0] WriteReg,ReadReg1,ReadReg2;
     reg [31:0] RegWriteData;
     wire [31:0] RegReadData1,RegReadData2;
+    wire [31:0] reg_ra;
+    wire [31:0] reg_sp;
+    wire [31:0] reg_a0;
+    wire [31:0] reg_a1;
+    wire [31:0] reg_t0;
+    wire [31:0] reg_t1;
+    wire [31:0] reg_t2;
+    wire [31:0] reg_s0;
+    wire [31:0] reg_s1; 
    Reg m1(
         .clk(clk),
         .rst(rst),
@@ -37,7 +46,16 @@ module tb_regfile(
         .WriteReg(WriteReg),
         .RegWriteData(RegWriteData),
         .RegReadData1(RegReadData1),
-        .RegReadData2(RegReadData2)
+        .RegReadData2(RegReadData2),
+        .reg_ra(reg_ra),              // output wire [31 : 0] reg_ra
+        .reg_sp(reg_sp),              // output wire [31 : 0] reg_sp
+        .reg_a0(reg_a0),              // output wire [31 : 0] reg_a0
+        .reg_a1(reg_a1),              // output wire [31 : 0] reg_a1
+        .reg_s0(reg_s0),              // output wire [31 : 0] reg_s0
+        .reg_s1(reg_s1),              // output wire [31 : 0] reg_s1
+        .reg_t0(reg_t0),              // output wire [31 : 0] reg_t0
+        .reg_t1(reg_t1),              // output wire [31 : 0] reg_t1
+        .reg_t2(reg_t2)              // output wire [31 : 0] reg_t2    
         );
         
     always clk = #10 ~clk;
@@ -66,6 +84,8 @@ module tb_regfile(
         #100;
         ReadReg1[4:0] = 5'h05;
         ReadReg2[4:0] = 5'h0a;
+        #50;
+        ReadReg1[4:0] = 5'h1f;
         #50;
         $stop;
     end
